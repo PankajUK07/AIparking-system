@@ -25,6 +25,7 @@ time.sleep(2)  # Give some time for the Arduino to initialize
 
 # Function to check parking space
 def checkParkingSpace(imgPro):
+    
     spaceCounter = 0
     for pos in posList:
         x, y = pos
@@ -33,7 +34,7 @@ def checkParkingSpace(imgPro):
         
         count = cv2.countNonZero(imgCrop)
         cvzone.putTextRect(img, str(count), (x, y+height - 3), scale=1, thickness=2, offset=0, colorR=(0, 0, 255))
-
+        
         if count < 500:
             color = (0, 255, 0)
             thickness = 5
@@ -65,7 +66,7 @@ while True:
 
     # Pass the processed image to the function
     freeSpaces = checkParkingSpace(imgDilate)
-    
+        
     # Send the number of free spaces to Arduino
     arduino.write(f"{freeSpaces}\n".encode())
     
